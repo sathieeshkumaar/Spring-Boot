@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .button2 {
+            background-color: #008CBA;
+            color: white;
+            border: 2px solid #008CBA;
+        }
+
+        .button2:hover {
+            background-color:white ;
+            color: black;
+        }
+        .button {
+            background-color:#008CBA ; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="HTMLtoPDF">
+    <div class="container">
+        <h2><center>INVOICE</center></h2>
+        <h2 style="float: left">VoizFonica</h2>
+        <br>
+        <br>
+
+        <div  th:each="j:${bill}">
+            <br>
+            <table class="table table-striped">
+                <h3 text-align="left">Order Details</h3>
+                <h3 text-align="left" th:text="${j.user}"></h3>
+                <thead>
+                <tr>
+                    <th>Plan</th>
+
+                    <th>Validity</th>
+                    <th>Amount</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${j.postPaid.name}">Postpaid</td>
+
+                    <td th:text="${j.postPaid.valid}">90days</td>
+                    <td th:text="${j.postPaid.amount}" >30</td>
+                </tr>
+
+                </tbody>
+            </table>
+            <h3 style="float: left">Payment Details</h3>
+            <br>  <br> <br> <br>
+            <table class="table table-striped" style="border-color: black">
+                <thead>
+                <tr>
+                    <th>Owner</th>
+                    <th>Card Number</th>
+                    <th>Date of Payment</th>
+                    <th>Time</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${j.payment.owner}">Postpaid</td>
+                    <td th:text="${j.payment.card}">Economic</td>
+                    <td th:text="${#dates.format(#dates.createNow(), ' dd MMM yyyy')}">90days</td>
+                    <td th:text="${#dates.format(#dates.createNow(), ' HH:mm')}">30</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="padding-top: 10px">
+        <center> <button class="button button2" onclick="HTMLtoPDF()">Invoice</button></center>
+        <div style="text-align: center">
+            <center><img src="https://i.pinimg.com/originals/0d/e4/1a/0de41a3c5953fba1755ebd416ec109dd.gif" /></center>
+        </div>
+        <center> <a href="dashboard"><input class="button button2" type=button value='Back to DashBoard'></a></center>
+    </div>
+
+    <script src="js/jspdf.js"></script>
+    <script src="js/jquery-2.1.3.js"></script>
+    <script src="js/pdfFromHTML.js"></script>
+</div>
+</body>
+</html>
