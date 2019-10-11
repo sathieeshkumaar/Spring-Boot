@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>
+Java Blog Management
+</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">TechBlog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <div class="navbar-nav ml-auto">
+            <a th:href="create" class="nav-item nav-link">Create Post</a>
+			<a href="/" class="nav-item nav-link">Log Out</a>
+
+        </div>
+
+  </div>
+</nav>
+
+
+
+	<!-- Image and text -->
+<!--<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="data:image/png;base64,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" width="30" height="30" class="d-inline-block align-top" alt="">
+    Tech Blog
+  </a>
+</nav>-->
+</header>
+
+<section class="container">
+	<div class="jumbotron" th:each="u: ${user}">
+		<h1>Hey </h1><h1 th:text="${u.name}">Bootstrap Blog Template</h1>
+		<p th:text="${u.email_address}">This responsive Blog template is done in Bootstrap 3 with no extra CSS or Javascript</p>
+	</div>
+</section>
+
+<div class="container">
+<div class="row">
+	<div class="col-sm-6 col-md-8 col-lg-8">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" th:each="u: ${plans}">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img src="https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?h=350&auto=compress&cs=tinysrgb" alt="" class="img-thumbnail img-responsive">
+						<p class="text-muted">By <span class="glyphicon glyphicon-user" aria-hidden="true" th:text="${u.name}">Lorem Ipsum |</span>  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p th:text="${#dates.format(u.date, 'dd-MMM-yyyy')}">Jan/21/2018</p></p>
+						<h3 th:text="${u.title}">Images by pexels.com</h3>
+						<p th:text="${u.summary}">Nulla vehicula semper tellus, eleifend convallis dolor accumsan vitae. Donec diam lorem, vulputate eget pharetra at, laoreet ac augue. Vestibulum tellus justo, faucibus quis hendrerit sit amet, rutrum non nulla[...]</p>
+						<p th:utext="${u.message}">Images by pexels.com</p>
+					</div>
+					<div class="row" style="margin-top:20px;margin-bottom:40px;">
+                            <div class="col">
+
+                                <a th:href="@{'/edit/'+${u._id}}"  class="btn btn-primary">Edit Post</a>
+                             </div>
+                            <div class="col">
+								<a th:href="@{'/blog/'+${u._id}}"  onclick="alert('Your post is deleted')" class="btn btn-danger">Delete Post</a>
+                              </div>
+
+                       </div>
+					   <hr>
+				</div>
+			</div>
+		
+		</div>
+		<hr>
+
+	</div>
+
+	<div class="col-sm-6 col-md-4 col-lg-4">
+		<div class="panel panel-default" >
+			<div class="panel-body" th:each="u: ${user}">
+
+
+
+				<h4 class="text-center">About me!</h4>
+				<img src="images/user.gif" alt="" class="img-thumbnail img-responsive">
+				<h5 class="text-center" th:text="${u.name}">Victor Santiago</h5>
+				<p th:text="${u.about}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                 <div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<img src="https://images.pexels.com/photos/273222/pexels-photo-273222.jpeg?h=350&auto=compress&cs=tinysrgb" alt="" class="img-thumbnail img-responsive">
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<h5>Tech Master..We Welcome You</h5>
+						<p class="text-muted"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan/21/2018</p>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<img src="https://images.pexels.com/photos/392018/pexels-photo-392018.jpeg?h=350&auto=compress&cs=tinysrgb" alt="" class="img-thumbnail img-responsive">
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<h5>Images by pexels.com</h5>
+						<p class="text-muted"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan/21/2018</p>
+					</div>
+				</div>
+				<hr>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<footer class="navbar-inverse">
+	<div class="container-fluid text-center">
+		<p class="text-muted">© Copyright 2018. All Rights Reserved.</p>
+	</div>
+</footer>
+
+</body>
+</html>
